@@ -1,0 +1,14 @@
+@page
+@model BakeryApp.Pages.CatalogModel
+@{
+    ViewData["Title"] = "Каталог продукции";
+}
+
+<div style="display: flex; gap: 2rem; flex-wrap: wrap;" class="mt-4">
+    <div style="flex: 1; min-width: 200px;">
+        <h3 style="margin-bottom: 1rem;">Категории</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a asp-page="/" asp-route-category="" class="btn" style="background"></a>
+        </div>
+    </div>
+</div>

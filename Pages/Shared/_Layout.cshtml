@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BakeryApp</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a class="brand" asp-page="/Index">Пекарня у дома</a>
+            <button class="burger-btn" onclick="toggleMenu()">☰</button>
+            <nav id="navMenu">
+                <a asp-page="/about">О пекарне</a>
+                <a asp-page="/catalog">Каталог</a>
+                <a asp-page="/promotions">Акции</a>
+                <a asp-page="/news">Новости</a>
+                <a asp-page="/reviews">Отзывы</a>
+                <a asp-page="/contacts">Контакты</a>
+                <a asp-page="/cart" class="cart-link">Корзина <span id="cartCount" class="badge">0</span></a>
+                <a asp-page="/profile" class="profile-link">Личный кабинет</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div>&copy; 2026 - "Пекарня у дома" | Вариант 14</div>
+            <div class="links">
+                <a asp-page="/Team">Разработчик/и</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById("navMenu");
+            nav.classList.toggle("active");
+        }
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
