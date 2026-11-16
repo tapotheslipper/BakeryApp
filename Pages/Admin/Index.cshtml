@@ -1,0 +1,9 @@
+@page
+@attribute [Authorize(Roles = "admin,manager")]
+@{
+    ViewData["Title"] = "Админ-панель";
+}
+
+<h1>Админ-панель</h1>
+<partial name="_AdminNav">
+<p>Выберите раздел.</p>

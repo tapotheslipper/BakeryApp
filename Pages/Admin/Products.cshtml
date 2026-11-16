@@ -1,0 +1,79 @@
+@page
+@model BakeryApp.Pages.Admin.ProductsModel
+@{
+    ViewData["Title"] = "Товары";
+}
+
+<h1>Товары</h1>
+<partial name="_AdminNav">
+<form method="post" asp-page-handler="Save" class="form-box" style="max-width:600px;margin:1rem 0;">
+    <h3>@(Model.Input.Id == 0 ? "Новый товар" : "Редактирование")</h3>
+    <input type="hidden" asp-for="Input.Id">
+    <div class="form-group">
+        <label>Название</label>
+        <input asp-for="Input.Name" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Категория</label>
+        <select asp-for="Input.Category" class="form-control">
+            @foreach (var c in CatalogModel.Categories)
+            {
+                <option>@c</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Цена</label>
+        <input asp-for="Input.Price" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Описание</label>
+        <input asp-for="Input.Description" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Состав</label>
+        <input asp-for="Input.Composition" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Калории, белки, жиры, углеводы</label>
+        <input asp-for="Input.Calories" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Изображение (URL)</label>
+        <input asp-for="Input.ImageUrl" class="form-control">
+    </div>
+    <label>
+        <input type="checkbox" asp-for="Input.IsRecommended"> Рекомендуемый
+    </label>
+    <p>
+        <button class="btn">Сохранить</button> <a asp-page="/Admin/Products">Сброс</a>
+    </p>
+</form>
+<div class="table-wrap">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Категория</th>
+                <th>Цена</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Items)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@p.Category</td>
+                    <td>@p.Price.ToString("0.##")</td>
+                    <td>
+                        <a asp-page="/Admin/Products" asp-route-editId="@p.Id">Изменить</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@p.Id" class="inline" onsubmit="return confirm('Удалить?');">
+                            <button class="link-btn">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

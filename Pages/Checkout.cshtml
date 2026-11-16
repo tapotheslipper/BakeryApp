@@ -1,0 +1,37 @@
+@page
+@model CheckoutModel
+@{
+    ViewData["Title"] = "Оформление заказа";
+}
+
+<form method="post" class="form-box" id="checkoutForm">
+    <h2>Оформление заказа</h2>
+    @if (Model.Error != null)
+    {
+        <div class="alert err-box">@Model.Error</div>
+    }
+    <p>Сумма: <b id="checkoutTotal">0</b> ₽</p>
+    <div class="form-group">
+        <label>ФИО</label>
+        <input asp-for="FullName" class="form-control">
+        <span asp-validation-for="FullName" class="err"></span>
+    </div>
+    <div class="form-group">
+        <label>Телефон</label>
+        <input asp-for="Phone" class="form-control">
+        <span asp-validation-for="Phone" class="err"></span>
+    </div>
+    <div class="form-group">
+        <label>Получение</label>
+        <select asp-for="DeliveryType" class="form-control">
+            <option>Самовывоз</option>
+            <option>Доставка</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Адрес (для доставки)</label>
+        <input asp-for="Address" class="form-control">
+    </div>
+    <input type="hidden" asp-for="CartJson">
+    <button class="btn">Подтвердить</button>
+</form>

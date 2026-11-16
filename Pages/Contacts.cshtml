@@ -1,0 +1,35 @@
+@page
+@model ContactsModel
+@{
+    ViewData["Title"] = "Контакты";
+}
+
+<h1>Контакты</h1>
+<div class="grid">
+    <div class="card">
+        <p><b>Адрес:</b> г. Чебаркули, ул. Хлебобулочная, 1</p>
+        <p><b>Телефон:</b> +7 (900) 800-70-60</p>
+        <p><b>Часы работы:</b> ежедневно 07:00-21:00</p>
+    </div>
+    <form method="post" class="card">
+        <h3>Обратная связь</h3>
+        @if (Model.Sent) { <div class="alert ok">Сообщение отправлено!</div> }
+        <div class="form-group">
+            <label>Имя</label>
+            <input asp-for="Name" class="form-control">
+            <span asp-validation-for="Name" class="err"></span>
+        </div>
+        <div class="form-group">
+            <labeL>Телефон</label>
+            <input asp-for="Phone" class="form-control">
+            <span asp-validation-for="Phone" class="err"></span>
+        </div>
+        <div class="form-group">
+            <label>Сообщение</label>
+            <textarea asp-for="Message" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Message" class="err"></span>
+        </div>
+        <button class="btn">Отправить</button>
+    </form>
+</div>
+<iframe class="map" src="https://yandex.ru/map-widget/v1/?ll=37.6173%2C55.7558&z=12" loading="lazy"></iframe>

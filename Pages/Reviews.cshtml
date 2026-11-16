@@ -1,0 +1,49 @@
+@page
+@model ReviewsModel
+@{
+    ViewData["Title"] = "Отзывы";
+}
+
+<h1>Отзывы</h1>
+<div class="grid">
+    @foreach (var r in Model.Items)
+    {
+        <div class="card">
+            <h5>@r.UserName <span class="stars">@(new string('★', r.Rating))</span></h5>
+            <p>@r.Text</p>
+        </div>
+    }
+</div>
+
+<h2>Оставить отзыв</h2>
+@if (User.Identity?.IsAuthenticated != true)
+{
+    <p>
+        <a asp-page="/Login" asp-route-returnUrl="/reviews">Войдите</a>, чтобы оставить отзыв.
+    </p>
+}
+else
+{
+    <form method="post" class="form-box" style="margin:1rem 0;">
+        @if (Model.Message != null)
+        {
+            <div class="alert ok">@Model.Message</div>
+        }
+        <div class="form-group">
+            <label>Оценка</label>
+            <select asp-for="Rating" class="form-control">
+                <option>5</option>
+                <option>4</option>
+                <option>3</option>
+                <option>2</option>
+                <option>1</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Текст</label>
+            <textarea asp-for="Text" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Text" class="err"></span>
+        </div>
+        <button class="btn">Отправить</button>
+    </form>
+}

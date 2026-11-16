@@ -1,0 +1,42 @@
+@page
+@model BakeryApp.Pages.Admin.ReviewsModel
+@{
+    ViewData["Title"] = "Модерация отзывов";
+}
+
+<h1>Отзывы</h1>
+<partial name="_AdminNav">
+<div class="table-wrap">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Автор</th>
+                <th>Оценка</th>
+                <th>Текст</th>
+                <th>Опубликован</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.Items)
+            {
+                <tr>
+                    <td>@r.UserName</td>
+                    <td>@r.Rating</td>
+                    <td>@r.Text</td>
+                    <td>@(r.IsPublished ? "Да" : "Нет")</td>
+                    <td>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <form method="post" class="inline">
+                                <input type="hidden" name="id" value="@r.Id">
+                                <input type="hidden" name="publish" value="@((!r.IsPublished).ToString().ToLower())">
+                                <button class="btn">@(r.IsPublished ? "Скрыть" : "Одобрить")</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

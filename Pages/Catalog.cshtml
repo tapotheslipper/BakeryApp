@@ -1,14 +1,36 @@
 @page
-@model BakeryApp.Pages.CatalogModel
+@model CatalogModel
 @{
-    ViewData["Title"] = "Каталог продукции";
+    ViewData["Title"] = "Каталог";
 }
 
-<div style="display: flex; gap: 2rem; flex-wrap: wrap;" class="mt-4">
-    <div style="flex: 1; min-width: 200px;">
-        <h3 style="margin-bottom: 1rem;">Категории</h3>
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <a asp-page="/" asp-route-category="" class="btn" style="background"></a>
+<div class="catalog-layout">
+    <aside class="catalog-sidebar">
+        <h3>Категории</h3>
+        <div class="category-list">
+            <a asp-page="/Catalog" class="category-btn @(string.IsNullOrEmpty(Model.Category) ? "active" : "")">Все</a>
+            @foreach (var c in CatalogModel.Categories)
+            {
+                <a asp-page="/Catalog" asp-route-category="@c" class="category-btn @(Model.Category == c ? "active" : "")">@c</a>
+            }
         </div>
+    </aside>
+    <div class="catalog-main">
+        <div class="catalog-header">
+            <h1>Каталог продукции</h1>
+            <input id="search" class="search-input" placeholder="Поиск по названию...">
+        </div>
+        <div class="grid">
+            @foreach (var p in Model.Products) { <partial name="_ProductCard" model="p" /> }
+        </div>
+        @if (!Model.Products.Any()) { <p>Товаров нет.</p> }
     </div>
 </div>
+
+<dialog id="productDialog">
+    <h3 id="dlgName"></h3>
+    <p id="dlgDesc"></p>
+    <p><b>Состав:</b> <span id="dlgComp"></span></p>
+    <p><b>КБЖУ:</b> <span id="dlgCal"></span></p>
+    <button type="button" class="btn" id="dlgClose">Закрыть</button>
+</dialog>

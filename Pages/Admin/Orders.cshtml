@@ -1,0 +1,49 @@
+@page
+@model OrdersModel
+@{
+    ViewData["Title"] = "Заказы";
+}
+
+<h1>Заказы</h1>
+<partial name="_AdminNav">
+<div class="table-wrap">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Дата</th>
+                <th>Клиент</th>
+                <th>Состав</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model.Orders)
+            {
+                <tr>
+                    <td>@o.Id</td>
+                    <td>@o.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        @o.FullName<br>
+                        <small class="muted">@o.Phone . @o.DeliveryType @o.Address</small>
+                    </td>
+                    <td>@string.Join(", ", o.OrderItems.Select(i => @"{i.Product.Name} x{i.Count}"))</td>
+                    <td>@o.TotalSum.ToString("0.##")</td>
+                    <td>
+                        <form method="post" class="inline">
+                            <input type="hidden" name="id" value="@o.Id">
+                            <select name="status" class="form-control">
+                                @foreach (var s in OrdersModel.Statuses)
+                                {
+                                    <option selected="@(s == o.Status)">@s</option>
+                                }
+                            </select>
+                            <button class="btn">ОК</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

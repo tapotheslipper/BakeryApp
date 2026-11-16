@@ -1,0 +1,9 @@
+<nav class="admin-nav">
+    <a asp-page="/Admin/Orders">Заказы</a>
+    <a asp-page="/Admin/Reviews">Отзывы</a>
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-page="/Admin/Products">Товары</a>
+        <a asp-page="/Admin/Users">Пользователи</a>
+    }
+</nav>

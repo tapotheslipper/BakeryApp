@@ -1,0 +1,17 @@
+@model Product
+@{ var price = Model.Price.ToString("0.##"); }
+<div class="card product-card" data-name="@Model.Name.ToLower()">
+    <img src="@Model.ImageUrl" alt="@Model.Name">
+    <h5>@Model.Name</h5>
+    <p>@Model.Description</p>
+    <div class="footer">
+        <span class="price">@price ₽</span>
+        <span class="actions">
+            <button type="button" class="btn btn-light"
+                data-name="@Model.Name" data-desc="@Model.Description"
+                data-comp="@Model.Composition" data-cal="@Model.Calories">Состав</button>
+            <button type="button" class="btn add-to-cart"
+                data-id="@Model.Id" data-name="@Model.Name" data-price="@price">В корзину</button>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+@page
+@model BakeryApp.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "Пользователи";
+}
+
+<h1>Пользователи</h1>
+<partial name="_AdminNav">
+<div class="table-wrap">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>ФИО</th>
+                <th>Роль</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in Model.Items)
+            {
+                <tr>
+                    <td>@u.Email</td>
+                    <td>@u.FullName</td>
+                    <td>
+                        <form method="post" class="inline">
+                            <input type="hidden" name="id" value="@u.Id">
+                            <select name="role" class="form-control">
+                                @foreach (var r in UsersModel.Roles)
+                                {
+                                    <option selected="@(r == u.Role)">@r</option>
+                                }
+                            </select>
+                            <button class="btn">ОК</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

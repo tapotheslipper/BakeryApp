@@ -8,21 +8,20 @@ namespace BakeryApp.Pages
 {
     public class CatalogModel : PageModel
     {
-        private readonly AppDbContext _context;
-        public CatalogModel(AppDbContext context) { _context = context; }
+        private readonly AppDbContext _db;
+        public CatalogModel(AppDbContext db) { _db = db; }
+
+        public static readonly string[] Categories = { "Хлеб", "Выпечка", "Торты", "Напитки" };
         public List<Product> Products { get; set; } = new();
 
         [BindProperty(SupportsGet = true)]
-        public string Category { get; set; } = string.Empty;
+        public string? Category { get; set; }
 
         public async Task OnGetAsync()
         {
-            var query = _context.Products.AsQueryable();
-            if (!string.IsNullOrEmpty(Category))
-            {
-                query = query.Where(p => p.Category == Category);
-            }
-            Products = await query.ToListAsync();
+            var q = _db.Products.AsQueryable();
+            if (!string.IsNullOrEmpty(Category)) q = q.Where(p => p.Category == Category);
+            Products = await q.OrderBy(p => p.Name).ToListAsync();
         }
     }
 }

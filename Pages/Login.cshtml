@@ -1,0 +1,26 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<form method="post" class="form-box">
+    <h2>Вход</h2>
+    @if (Model.Error != null)
+    {
+        <div class="alert err-box">@Model.Error</div>
+    }
+    <div class="form-group">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control">
+        <span asp-validation-for="Email" class="err"></span>
+    </div>
+    <div class="form-group">
+        <label>Пароль</label>
+        <input asp-for="Password" type="password" class="form-control">
+        <span asp-validation-for="Password" class="err"></span>
+        <input type="hidden" asp-for="ReturnUrl">
+        <button class="btn">Войти</button>
+        <p>Ещё не зарегистрированы? <a asp-page="/Register">Регистрация</a></p>
+    </div>
+</form>

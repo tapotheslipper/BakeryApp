@@ -1,0 +1,17 @@
+@page
+@model NewsModel
+@{
+    ViewData["Title"] = "Новости";
+}
+
+<h1>Новости</h1>
+<div class="grid">
+    @foreach (var n in Model.Items)
+    {
+        <div class="card">
+            <h5>@n.Title</h5>
+            <p>@n.Text</p>
+            <small class="muted">@n.CreatedAt.ToString("dd.MM.yyyy")</small>
+        </div>
+    }
+</div>

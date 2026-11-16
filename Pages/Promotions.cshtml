@@ -1,0 +1,16 @@
+@page
+@model PromotionsModel
+@{
+    ViewData["Title"] = "Акции";
+}
+
+<h1>Акции</h1>
+<div class="grid">
+    @foreach (var a in Model.Items)
+    {
+        <div class="card">
+            <h5>@a.Title <span class="badge">@a.Discount</span></h5>
+            <p>@a.Text</p>
+        </div>
+    }
+</div>
